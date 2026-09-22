@@ -1,0 +1,7 @@
+*.apk
+*.idsig
+*.tar
+*.tar.xz
+*.dex
+*.log
+build/

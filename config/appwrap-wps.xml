@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <string name="container"></string>
+    <boolean name="relayVerbose" value="false" />
+    <boolean name="kgsl" value="false" />
+    <string name="envExtra"></string>
+    <int name="display" value="0" />
+    <string name="rootDir">/data/adb/anland-wps/root</string>
+    <string name="dsPath">droidspaces</string>
+    <string name="chromeArgs">--no-sandbox --disable-dev-shm-usage --enable-logging=stderr --v=1</string>
+    <boolean name="autoAttach" value="true" />
+    <string name="url"></string>
+    <int name="perfMode" value="1" />
+    <int name="mode" value="3" />
+    <string name="args"></string>
+    <string name="exe"></string>
+    <string name="name">wps</string>
+    <string name="user"></string>
+    <string name="runtimeDir">/data/local/tmp/awl</string>
+</map>

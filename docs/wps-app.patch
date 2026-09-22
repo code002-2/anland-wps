@@ -1,0 +1,582 @@
+diff -u -r a/smali/com/anland/appwrap/AppCfg.smali b/smali/com/anland/appwrap/AppCfg.smali
+--- a/smali/com/anland/appwrap/AppCfg.smali	2026-09-22 00:46:09.813218666 +0000
++++ b/smali/com/anland/appwrap/AppCfg.smali	2026-09-22 05:37:33.137211996 +0000
+@@ -10,7 +10,7 @@
+ 
+ .field private static final COMMON:Ljava/lang/String; = "--no-sandbox --no-zygote --ozone-platform=wayland --disable-dev-shm-usage --no-first-run --no-default-browser-check --enable-unsafe-swiftshader --autoplay-policy=no-user-gesture-required "
+ 
+-.field public static final DEFAULT_CHROME_ARGS:Ljava/lang/String; = "--no-sandbox --no-zygote --ozone-platform=wayland --disable-dev-shm-usage --no-first-run --no-default-browser-check --enable-unsafe-swiftshader --autoplay-policy=no-user-gesture-required --use-gl=angle --use-angle=gles --force-device-scale-factor=0.4 --disable-gpu-compositing --force-prefers-reduced-motion --enable-low-end-device-mode --renderer-process-limit=1 --num-raster-threads=4 --js-flags=--max-old-space-size=512"
++.field public static final DEFAULT_CHROME_ARGS:Ljava/lang/String; = ""
+ 
+ .field public static final DEFAULT_ROOT:Ljava/lang/String; = "/data/adb/anland-chrome/root"
+ 
+@@ -28,9 +28,9 @@
+ 
+ .field public static final PERF_STOCK:I = 0x1
+ 
+-.field private static final SMOOTH:Ljava/lang/String; = "--no-sandbox --no-zygote --ozone-platform=wayland --disable-dev-shm-usage --no-first-run --no-default-browser-check --enable-unsafe-swiftshader --autoplay-policy=no-user-gesture-required --use-gl=angle --use-angle=gles --force-device-scale-factor=0.4 --disable-gpu-compositing --force-prefers-reduced-motion --enable-low-end-device-mode --renderer-process-limit=1 --num-raster-threads=4 --js-flags=--max-old-space-size=512"
++.field private static final SMOOTH:Ljava/lang/String; = ""
+ 
+-.field private static final STOCK:Ljava/lang/String; = "--no-sandbox --no-zygote --ozone-platform=wayland --disable-dev-shm-usage --no-first-run --no-default-browser-check --enable-unsafe-swiftshader --autoplay-policy=no-user-gesture-required --use-gl=angle --use-angle=gles --force-device-scale-factor=0.6 --enable-low-end-device-mode --renderer-process-limit=1 --num-raster-threads=4 --js-flags=--max-old-space-size=512"
++.field private static final STOCK:Ljava/lang/String; = ""
+ 
+ 
+ # instance fields
+@@ -77,7 +77,7 @@
+     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+ 
+     .line 85
+-    const-string v0, "chrome"
++    const-string v0, "wps"
+ 
+     iput-object v0, p0, Lcom/anland/appwrap/AppCfg;->name:Ljava/lang/String;
+ 
+@@ -111,17 +111,17 @@
+     iput-boolean v2, p0, Lcom/anland/appwrap/AppCfg;->autoAttach:Z
+ 
+     .line 94
+-    const-string v2, "/data/adb/anland-chrome/root"
++    const-string v2, "/data/adb/anland-wps/root"
+ 
+     iput-object v2, p0, Lcom/anland/appwrap/AppCfg;->rootDir:Ljava/lang/String;
+ 
+     .line 95
+-    const-string v2, "--no-sandbox --no-zygote --ozone-platform=wayland --disable-dev-shm-usage --no-first-run --no-default-browser-check --enable-unsafe-swiftshader --autoplay-policy=no-user-gesture-required --use-gl=angle --use-angle=gles --force-device-scale-factor=0.4 --disable-gpu-compositing --force-prefers-reduced-motion --enable-low-end-device-mode --renderer-process-limit=1 --num-raster-threads=4 --js-flags=--max-old-space-size=512"
++    const-string v2, ""
+ 
+     iput-object v2, p0, Lcom/anland/appwrap/AppCfg;->chromeArgs:Ljava/lang/String;
+ 
+     .line 96
+-    const-string v2, "https://www.bing.com"
++    const-string v2, ""
+ 
+     iput-object v2, p0, Lcom/anland/appwrap/AppCfg;->url:Ljava/lang/String;
+ 
+@@ -140,6 +140,8 @@
+     iput-boolean v2, p0, Lcom/anland/appwrap/AppCfg;->relayVerbose:Z
+ 
+     .line 122
++    const/4 v0, 0x0
++
+     iput v0, p0, Lcom/anland/appwrap/AppCfg;->display:I
+ 
+     .line 124
+@@ -361,12 +363,12 @@
+     if-ne p0, v0, :cond_0
+ 
+     .line 65
+-    const-string p0, "--no-sandbox --no-zygote --ozone-platform=wayland --disable-dev-shm-usage --no-first-run --no-default-browser-check --enable-unsafe-swiftshader --autoplay-policy=no-user-gesture-required --use-gl=angle --use-angle=gles --force-device-scale-factor=0.6 --enable-low-end-device-mode --renderer-process-limit=1 --num-raster-threads=4 --js-flags=--max-old-space-size=512"
++    const-string p0, ""
+ 
+     return-object p0
+ 
+     :cond_0
+-    const-string p0, "--no-sandbox --no-zygote --ozone-platform=wayland --disable-dev-shm-usage --no-first-run --no-default-browser-check --enable-unsafe-swiftshader --autoplay-policy=no-user-gesture-required --use-gl=angle --use-angle=gles --force-device-scale-factor=0.4 --disable-gpu-compositing --force-prefers-reduced-motion --enable-low-end-device-mode --renderer-process-limit=1 --num-raster-threads=4 --js-flags=--max-old-space-size=512"
++    const-string p0, ""
+ 
+     return-object p0
+ .end method
+diff -u -r a/smali/com/anland/appwrap/BuildConfig.smali b/smali/com/anland/appwrap/BuildConfig.smali
+--- a/smali/com/anland/appwrap/BuildConfig.smali	2026-09-22 00:46:09.785218666 +0000
++++ b/smali/com/anland/appwrap/BuildConfig.smali	2026-09-22 05:32:30.577212112 +0000
+@@ -4,7 +4,7 @@
+ 
+ 
+ # static fields
+-.field public static final APPLICATION_ID:Ljava/lang/String; = "com.anland.appwrap"
++.field public static final APPLICATION_ID:Ljava/lang/String; = "com.anland.wpswrap"
+ 
+ .field public static final BUILD_TYPE:Ljava/lang/String; = "release"
+ 
+diff -u -r a/smali/com/anland/appwrap/Launcher.smali b/smali/com/anland/appwrap/Launcher.smali
+--- a/smali/com/anland/appwrap/Launcher.smali	2026-09-22 00:46:09.901218665 +0000
++++ b/smali/com/anland/appwrap/Launcher.smali	2026-09-22 06:23:32.353210944 +0000
+@@ -4,7 +4,7 @@
+ 
+ 
+ # static fields
+-.field public static final CHROME:Ljava/lang/String; = "/opt/google/chrome/chrome"
++.field public static final CHROME:Ljava/lang/String; = "/usr/bin/wps"
+ 
+ .field public static final DISP_WAYLAND_FD:I = 0x1
+ 
+@@ -228,7 +228,7 @@
+ 
+     move-result-object v0
+ 
+-    const-string v7, "\nif [ ! -x \"$R/opt/google/chrome/chrome\" ]; then echo \'appwrap: \u627e\u4e0d\u5230 $R/opt/google/chrome/chrome\uff08\u5148\u70b9\u300c\u5b89\u88c5 rootfs\u300d\uff09\' >&2; exit 8; fi\n"
++    const-string v7, "\nif [ ! -x \"$R/usr/bin/wps\" ]; then echo \'appwrap: \u627e\u4e0d\u5230 $R/usr/bin/wps\uff08\u5148\u70b9\u300c\u5b89\u88c5 rootfs\u300d\uff09\' >&2; exit 8; fi\n"
+ 
+     invoke-virtual {v0, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+ 
+@@ -251,7 +251,7 @@
+ 
+     .line 143
+     :cond_7
+-    const-string v0, "mkdir -p \"$R/proc\" \"$R/sys\" \"$R/dev/shm\" \"$R/tmp\" \"$R/run\" \"$R/root/.chrome\" 2>/dev/null\ngrep -q \" $R/proc \" /proc/mounts || { mount -t proc proc \"$R/proc\" || mount --bind /proc \"$R/proc\"; } 2>&1\ngrep -q \" $R/sys \" /proc/mounts || { mount -t sysfs sysfs \"$R/sys\" || mount --bind /sys \"$R/sys\"; } 2>&1\ngrep -q \" $R/dev \" /proc/mounts || mount --bind /dev \"$R/dev\" 2>&1\ngrep -q \" $R/dev/shm \" /proc/mounts || mount -t tmpfs -o mode=1777,size=512m tmpfs \"$R/dev/shm\" 2>&1\necho \'appwrap: \u6302\u8f7d\u5b8c\u6210\' >&2\n"
++    const-string v0, "mkdir -p \"$R/proc\" \"$R/sys\" \"$R/dev/shm\" \"$R/tmp\" \"$R/run\" \"$R/root/.chrome\" 2>/dev/null\ngrep -q \" $R/proc \" /proc/mounts || { mount -t proc proc \"$R/proc\" || mount --bind /proc \"$R/proc\"; } 2>&1\ngrep -q \" $R/sys \" /proc/mounts || { mount -t sysfs sysfs \"$R/sys\" || mount --bind /sys \"$R/sys\"; } 2>&1\ngrep -q \" $R/dev \" /proc/mounts || mount --bind /dev \"$R/dev\" 2>&1\ngrep -q \" $R/dev/shm \" /proc/mounts || mount -t tmpfs -o mode=1777,size=512m tmpfs \"$R/dev/shm\" 2>&1\necho \'appwrap: \u6302\u8f7d\u5b8c\u6210\' >&2\nmkdir -p \"$R/run/wpsin\"\ngrep -q \" $R/run/wpsin \" /proc/mounts || mount --bind /data/user/0/com.anland.wpswrap/files \"$R/run/wpsin\" 2>&1\ntouch \"$R/run/wpsin/xtype.log\" 2>/dev/null\necho \'appwrap: 输入桥目录已挂载\' >&2\n"
+ 
+     invoke-virtual {v6, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+ 
+@@ -262,7 +262,7 @@
+ 
+     const-string v8, "mkdir -p \"$R/run/anland\"\ngrep -q \" $R/run/anland \" /proc/mounts || mount --bind "
+ 
+-    const-string v9, "\' >&2\nexec chroot \"$R\" /usr/bin/env -i HOME=/root USER=root LOGNAME=root TERM=xterm-256color PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin XDG_RUNTIME_DIR=/tmp XDG_SESSION_TYPE=wayland "
++    const-string v9, "\' >&2\nexec chroot \"$R\" /usr/bin/env -i HOME=/root USER=root LOGNAME=root TERM=xterm-256color LANG=zh_CN.UTF-8 LC_ALL=zh_CN.UTF-8 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin XDG_RUNTIME_DIR=/tmp XDG_SESSION_TYPE=wayland "
+ 
+     const-string v10, "\'"
+ 
+@@ -314,7 +314,7 @@
+ 
+     move-result-object p0
+ 
+-    const-string v0, "/pulse.sock \u2014\u2014 \u97f3\u9891\u4e0d\u53ef\u7528\uff08\u5bbf\u4e3b\u6a21\u5757\u7684 PulseAudio \u6ca1\u8d77\uff1f\uff09\' >&2; fi\nif [ ! -S \"$R/tmp/wayland-0\" ]; then echo \'appwrap: $R/tmp/wayland-0 \u4e0d\u5b58\u5728 \u2014\u2014 \u4e2d\u7ee7\u6ca1\u8d77\u6765\uff1f\' >&2; exit 7; fi\necho \'appwrap: chroot \u2192 chrome(Wayland \u7ecf\u4e2d\u7ee7) "
++    const-string v0, "/pulse.sock \u2014\u2014 \u97f3\u9891\u4e0d\u53ef\u7528\uff08\u5bbf\u4e3b\u6a21\u5757\u7684 PulseAudio \u6ca1\u8d77\uff1f\uff09\' >&2; fi\nif [ ! -S \"$R/tmp/wayland-0\" ]; then echo \'appwrap: $R/tmp/wayland-0 \u4e0d\u5b58\u5728 \u2014\u2014 \u4e2d\u7ee7\u6ca1\u8d77\u6765\uff1f\' >&2; exit 7; fi\necho \'appwrap: chroot \u2192 wps(Wayland \u7ecf\u4e2d\u7ee7) "
+ 
+     .line 167
+     invoke-virtual {p0, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+@@ -339,7 +339,7 @@
+ 
+     move-result-object p0
+ 
+-    const-string v0, "WAYLAND_DISPLAY=/tmp/wayland-0 $AUD /opt/google/chrome/chrome "
++    const-string v0, "WAYLAND_DISPLAY=/tmp/wayland-0 $AUD /usr/bin/wps "
+ 
+     .line 175
+     invoke-virtual {p0, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+@@ -400,7 +400,7 @@
+ 
+     move-result-object p0
+ 
+-    const-string v0, " \"$R/run/anland\" 2>&1\nAUD=\"\"\n[ -S \"$R/run/anland/pulse.sock\" ] && AUD=\"PULSE_SERVER=unix:/run/anland/pulse.sock\"\necho \'appwrap: \u51c6\u5907\u542f\u52a8 Xwayland + anland-miniwm\' >&2\n[ -f \"$R/tmp/appwrap-x.pid\" ] && kill $(cat \"$R/tmp/appwrap-x.pid\") 2>/dev/null; [ -f \"$R/tmp/appwrap-wm.pid\" ] && kill $(cat \"$R/tmp/appwrap-wm.pid\") 2>/dev/null; sleep 0.3; rm -f \"$R/tmp/.X11-unix/X0\" \"$R/tmp/.X0-lock\"\nchroot \"$R\" /usr/bin/env -i HOME=/root USER=root LOGNAME=root TERM=xterm-256color PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin XDG_RUNTIME_DIR=/tmp XDG_SESSION_TYPE=wayland "
++    const-string v0, " \"$R/run/anland\" 2>&1\nAUD=\"\"\n[ -S \"$R/run/anland/pulse.sock\" ] && AUD=\"PULSE_SERVER=unix:/run/anland/pulse.sock\"\necho \'appwrap: \u51c6\u5907\u542f\u52a8 Xwayland + anland-miniwm\' >&2\n[ -f \"$R/tmp/appwrap-x.pid\" ] && kill $(cat \"$R/tmp/appwrap-x.pid\") 2>/dev/null; [ -f \"$R/tmp/appwrap-wm.pid\" ] && kill $(cat \"$R/tmp/appwrap-wm.pid\") 2>/dev/null; sleep 0.3; rm -f \"$R/tmp/.X11-unix/X0\" \"$R/tmp/.X0-lock\"\nchroot \"$R\" /usr/bin/env -i HOME=/root USER=root LOGNAME=root TERM=xterm-256color LANG=zh_CN.UTF-8 LC_ALL=zh_CN.UTF-8 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin XDG_RUNTIME_DIR=/tmp XDG_SESSION_TYPE=wayland "
+ 
+     invoke-virtual {p0, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+ 
+@@ -413,7 +413,7 @@
+ 
+     move-result-object p0
+ 
+-    const-string v0, "WAYLAND_SOCKET=$WAYLAND_SOCKET /usr/bin/Xwayland :0 -rootless -noreset -ac -terminate &\nXPID=$!\necho $XPID > \"$R/tmp/appwrap-x.pid\"\necho \"appwrap: Xwayland \u5df2\u542f\u52a8 pid=$XPID\uff0c\u7b49 X0 \u5957\u63a5\u5b57...\" >&2\ni=0; while [ $i -lt 150 ]; do [ -S \"$R/tmp/.X11-unix/X0\" ] && break; kill -0 $XPID 2>/dev/null || { echo \'appwrap: Xwayland \u9000\u51fa\u4e86\' >&2; break; }; sleep 0.2; i=$((i+1)); done\n[ -S \"$R/tmp/.X11-unix/X0\" ] && echo \'appwrap: X0 \u5c31\u7eea\' >&2 || echo \'appwrap: X0 \u672a\u51fa\u73b0\uff08Xwayland \u6ca1\u8d77\u6765\uff1f\u770b\u4e0a\u9762\u7684\u62a5\u9519\uff09\' >&2\n[ -x \"$R/usr/bin/anland-miniwm\" ] || echo \'appwrap: \u8b66\u544a\uff1arootfs \u91cc\u6ca1\u6709 /usr/bin/anland-miniwm \u2014\u2014 \u6ca1\u6709 WM \u65f6 rootless Xwayland \u4e0d\u4f1a surface \u7a97\u53e3\uff0c\u5b88\u62a4\u8fdb\u7a0b\u5c06\u770b\u4e0d\u5230\u4efb\u4f55\u7a97\u53e3\' >&2\nchroot \"$R\" /usr/bin/env -i HOME=/root USER=root LOGNAME=root TERM=xterm-256color PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin XDG_RUNTIME_DIR=/tmp XDG_SESSION_TYPE=x11 "
++    const-string v0, "WAYLAND_SOCKET=$WAYLAND_SOCKET /usr/bin/Xwayland :0 -rootless -noreset -ac -terminate &\nXPID=$!\necho $XPID > \"$R/tmp/appwrap-x.pid\"\necho \"appwrap: Xwayland \u5df2\u542f\u52a8 pid=$XPID\uff0c\u7b49 X0 \u5957\u63a5\u5b57...\" >&2\ni=0; while [ $i -lt 150 ]; do [ -S \"$R/tmp/.X11-unix/X0\" ] && break; kill -0 $XPID 2>/dev/null || { echo \'appwrap: Xwayland \u9000\u51fa\u4e86\' >&2; break; }; sleep 0.2; i=$((i+1)); done\n[ -S \"$R/tmp/.X11-unix/X0\" ] && echo \'appwrap: X0 \u5c31\u7eea\' >&2 || echo \'appwrap: X0 \u672a\u51fa\u73b0\uff08Xwayland \u6ca1\u8d77\u6765\uff1f\u770b\u4e0a\u9762\u7684\u62a5\u9519\uff09\' >&2\n[ -x \"$R/usr/bin/anland-miniwm\" ] || echo \'appwrap: \u8b66\u544a\uff1arootfs \u91cc\u6ca1\u6709 /usr/bin/anland-miniwm \u2014\u2014 \u6ca1\u6709 WM \u65f6 rootless Xwayland \u4e0d\u4f1a surface \u7a97\u53e3\uff0c\u5b88\u62a4\u8fdb\u7a0b\u5c06\u770b\u4e0d\u5230\u4efb\u4f55\u7a97\u53e3\' >&2\nchroot \"$R\" /usr/bin/env -i HOME=/root USER=root LOGNAME=root TERM=xterm-256color LANG=zh_CN.UTF-8 LC_ALL=zh_CN.UTF-8 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin XDG_RUNTIME_DIR=/tmp XDG_SESSION_TYPE=x11 "
+ 
+     .line 194
+     invoke-virtual {p0, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+@@ -427,7 +427,7 @@
+ 
+     move-result-object p0
+ 
+-    const-string v0, "DISPLAY=:0 XDG_RUNTIME_DIR=/tmp ANLAND_WM_SOCK=/run/anland/anland-wm.sock /usr/bin/anland-miniwm &\nWMPID=$!\necho $WMPID > \"$R/tmp/appwrap-wm.pid\"\necho \"appwrap: anland-miniwm \u5df2\u542f\u52a8 pid=$WMPID\uff08rootless Xwayland \u9760\u5b83 surface \u7a97\u53e3\uff09\" >&2\nsleep 0.6\nkill -0 $WMPID 2>/dev/null && echo \'appwrap: mini-wm \u5b58\u6d3b\' >&2 || echo \'appwrap: mini-wm \u5df2\u9000\u51fa\uff08\u770b\u4e0a\u9762\u7684\u62a5\u9519\uff09\' >&2\necho \'appwrap: chroot \u2192 chrome(X11) "
++    const-string v0, "DISPLAY=:0 XDG_RUNTIME_DIR=/tmp ANLAND_WM_SOCK=/run/anland/anland-wm.sock /usr/bin/anland-miniwm &\nWMPID=$!\necho $WMPID > \"$R/tmp/appwrap-wm.pid\"\necho \"appwrap: anland-miniwm \u5df2\u542f\u52a8 pid=$WMPID\uff08rootless Xwayland \u9760\u5b83 surface \u7a97\u53e3\uff09\" >&2\nsleep 0.6\nkill -0 $WMPID 2>/dev/null && echo \'appwrap: mini-wm \u5b58\u6d3b\' >&2 || echo \'appwrap: mini-wm \u5df2\u9000\u51fa\uff08\u770b\u4e0a\u9762\u7684\u62a5\u9519\uff09\' >&2\npkill xtyped 2>/dev/null\nsetsid chroot \"$R\" /usr/bin/env -i HOME=/root PATH=/usr/bin:/bin DISPLAY=:0 /usr/bin/xtyped /run/wpsin/xtype.log > \"$R/tmp/xtyped.log\" 2>&1 &\necho \'appwrap: 输入桥已启动（xtyped）\' >&2\necho \'appwrap: chroot \u2192 wps(X11) "
+ 
+     .line 210
+     invoke-virtual {p0, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+@@ -445,7 +445,7 @@
+ 
+     move-result-object p0
+ 
+-    const-string v0, "\' >&2\nexec chroot \"$R\" /usr/bin/env -i HOME=/root USER=root LOGNAME=root TERM=xterm-256color PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin XDG_RUNTIME_DIR=/tmp XDG_SESSION_TYPE=x11 "
++    const-string v0, "\' >&2\nexec chroot \"$R\" /usr/bin/env -i HOME=/root USER=root LOGNAME=root TERM=xterm-256color LANG=zh_CN.UTF-8 LC_ALL=zh_CN.UTF-8 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin XDG_RUNTIME_DIR=/tmp XDG_SESSION_TYPE=x11 "
+ 
+     .line 218
+     invoke-virtual {p0, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+@@ -459,7 +459,7 @@
+ 
+     move-result-object p0
+ 
+-    const-string v0, "DISPLAY=:0 $AUD /opt/google/chrome/chrome "
++    const-string v0, "DISPLAY=:0 $AUD /usr/bin/wps "
+ 
+     .line 220
+     invoke-virtual {p0, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+@@ -524,7 +524,7 @@
+ 
+     move-result-object p0
+ 
+-    const-string v0, " \"$R/run/anland\" 2>&1\necho \'appwrap: \u8b66\u544a\u2014\u2014\u6b64\u6a21\u5f0f\u4e0b Chrome \u4ee5 root \u8fde wayland-0\uff0c\u7a97\u53e3\u5c5e\u4e8e root\uff0c\u9700\u8981\u7b2c\u4e00\u65b9\u5bbf\u4e3b APK(com.anlandnext) \u663e\u793a\' >&2\nexec chroot \"$R\" /usr/bin/env -i HOME=/root USER=root LOGNAME=root TERM=xterm-256color PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin XDG_RUNTIME_DIR=/tmp XDG_SESSION_TYPE=wayland "
++    const-string v0, " \"$R/run/anland\" 2>&1\necho \'appwrap: \u8b66\u544a\u2014\u2014\u6b64\u6a21\u5f0f\u4e0b WPS \u4ee5 root \u8fde wayland-0\uff0c\u7a97\u53e3\u5c5e\u4e8e root\uff0c\u9700\u8981\u7b2c\u4e00\u65b9\u5bbf\u4e3b APK(com.anlandnext) \u663e\u793a\' >&2\nexec chroot \"$R\" /usr/bin/env -i HOME=/root USER=root LOGNAME=root TERM=xterm-256color LANG=zh_CN.UTF-8 LC_ALL=zh_CN.UTF-8 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin XDG_RUNTIME_DIR=/tmp XDG_SESSION_TYPE=wayland "
+ 
+     invoke-virtual {p0, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+ 
+@@ -537,7 +537,7 @@
+ 
+     move-result-object p0
+ 
+-    const-string v0, "WAYLAND_DISPLAY=/run/anland/wayland-0 /opt/google/chrome/chrome "
++    const-string v0, "WAYLAND_DISPLAY=/run/anland/wayland-0 /usr/bin/wps "
+ 
+     .line 231
+     invoke-virtual {p0, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+@@ -559,7 +559,7 @@
+ 
+     .line 234
+     :cond_10
+-    const-string p0, "echo \'appwrap: chroot \u2192 chrome(WAYLAND_SOCKET=$WAYLAND_SOCKET) "
++    const-string p0, "echo \'appwrap: chroot \u2192 wps(WAYLAND_SOCKET=$WAYLAND_SOCKET) "
+ 
+     invoke-virtual {v6, p0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+ 
+@@ -585,7 +585,7 @@
+ 
+     move-result-object p0
+ 
+-    const-string v0, "WAYLAND_SOCKET=$WAYLAND_SOCKET /opt/google/chrome/chrome "
++    const-string v0, "WAYLAND_SOCKET=$WAYLAND_SOCKET /usr/bin/wps "
+ 
+     .line 237
+     invoke-virtual {p0, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+@@ -630,7 +630,7 @@
+ 
+     move-result-object p0
+ 
+-    const-string v0, "\npkill chrome 2>/dev/null; pkill chrome_crashpad_handler 2>/dev/null; pkill libawlrelay.so 2>/dev/null; pkill Xwayland 2>/dev/null; pkill anland-miniwm 2>/dev/null\nsleep 1\nrm -f \"$R/root/.chrome/SingletonLock\" \"$R/root/.chrome/SingletonCookie\" \"$R/root/.chrome/SingletonSocket\" 2>/dev/null\nrm -f \"$R/tmp/wayland-0\" \"$R/tmp/.X11-unix/X0\" \"$R/tmp/.X0-lock\" 2>/dev/null\nrm -f \"$R/tmp/appwrap-x.pid\" \"$R/tmp/appwrap-wm.pid\" 2>/dev/null\necho CLEANED"
++    const-string v0, "\npkill xtyped 2>/dev/null; pkill wpsoffice 2>/dev/null; pkill wpscloudsvr 2>/dev/null; pkill libawlrelay.so 2>/dev/null; pkill Xwayland 2>/dev/null; pkill anland-miniwm 2>/dev/null\nsleep 1\nrm -f \"$R/root/.chrome/SingletonLock\" \"$R/root/.chrome/SingletonCookie\" \"$R/root/.chrome/SingletonSocket\" 2>/dev/null\nrm -f \"$R/tmp/wayland-0\" \"$R/tmp/.X11-unix/X0\" \"$R/tmp/.X0-lock\" 2>/dev/null\nrm -f \"$R/tmp/appwrap-x.pid\" \"$R/tmp/appwrap-wm.pid\" 2>/dev/null\necho CLEANED"
+ 
+     invoke-virtual {p0, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+ 
+@@ -1595,7 +1595,7 @@
+     .line 467
+     new-instance v0, Ljava/lang/StringBuilder;
+ 
+-    const-string v1, "pkill chrome 2>/dev/null; pkill chrome_crashpad_handler 2>/dev/null; pkill anland-miniwm 2>/dev/null; pkill Xwayland 2>/dev/null; pkill libawlrelay.so 2>/dev/null; rm -f "
++    const-string v1, "pkill xtyped 2>/dev/null; pkill wpsoffice 2>/dev/null; pkill wpscloudsvr 2>/dev/null; pkill anland-miniwm 2>/dev/null; pkill Xwayland 2>/dev/null; pkill libawlrelay.so 2>/dev/null; rm -f "
+ 
+     invoke-direct {v0, v1}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+ 
+diff -u -r a/smali/com/anland/appwrap/MainActivity.smali b/smali/com/anland/appwrap/MainActivity.smali
+--- a/smali/com/anland/appwrap/MainActivity.smali	2026-09-22 05:26:33.897212248 +0000
++++ b/smali/com/anland/appwrap/MainActivity.smali	2026-09-22 05:37:33.141211996 +0000
+@@ -1089,7 +1089,7 @@
+     invoke-direct {v3, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
+ 
+     .line 266
+-    const-string v6, "\u6027\u80fd\u6a21\u5f0f\uff08\u9009\u4e86\u4f1a\u81ea\u52a8\u91cd\u542f Chrome \u751f\u6548\uff09:"
++    const-string v6, "\u6027\u80fd\u6a21\u5f0f\uff08\u9009\u4e86\u4f1a\u81ea\u52a8\u91cd\u542f WPS \u751f\u6548\uff09:"
+ 
+     invoke-virtual {v3, v6}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+ 
+@@ -1160,7 +1160,7 @@
+ 
+     invoke-direct {v8, p0}, Lcom/anland/appwrap/MainActivity$$ExternalSyntheticLambda9;-><init>(Lcom/anland/appwrap/MainActivity;)V
+ 
+-    const-string v9, "\u5e94\u7528\u6b64\u6863\u4f4d\u5e76\u91cd\u542f Chrome"
++    const-string v9, "\u5e94\u7528\u6b64\u6863\u4f4d\u5e76\u91cd\u542f WPS"
+ 
+     invoke-direct {p0, v9, v8}, Lcom/anland/appwrap/MainActivity;->button(Ljava/lang/String;Landroid/view/View$OnClickListener;)Landroid/widget/Button;
+ 
+@@ -1210,7 +1210,7 @@
+ 
+     iget-object v9, v9, Lcom/anland/appwrap/AppCfg;->chromeArgs:Ljava/lang/String;
+ 
+-    const-string v10, "Chrome \u53c2\u6570"
++    const-string v10, "WPS \u53c2\u6570"
+ 
+     invoke-direct {p0, v3, v10, v9}, Lcom/anland/appwrap/MainActivity;->addRow(Landroid/widget/LinearLayout;Ljava/lang/String;Ljava/lang/String;)Landroid/widget/EditText;
+ 
+@@ -2363,7 +2363,7 @@
+ 
+     move-result-object v3
+ 
+-    const-string v4, "\uff09\u2192 \u91cd\u542f Chrome \u800c\u4e0d\u662f\u6302\u65e7\u7a97\u53e3"
++    const-string v4, "\uff09\u2192 \u91cd\u542f WPS \u800c\u4e0d\u662f\u6302\u65e7\u7a97\u53e3"
+ 
+     invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+ 
+@@ -2389,7 +2389,7 @@
+     .line 563
+     new-instance v0, Ljava/lang/StringBuilder;
+ 
+-    const-string v1, "\u5df2\u6709 Chrome \u7a97\u53e3\uff08"
++    const-string v1, "\u5df2\u6709 WPS \u7a97\u53e3\uff08"
+ 
+     invoke-direct {v0, v1}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+ 
+@@ -3093,7 +3093,7 @@
+ 
+     move-result-object p1
+ 
+-    const-string p2, " 8 \u79d2\u5185\u6ca1\u51fa\u73b0 \u2014\u2014 \u653e\u5f03\u542f\u52a8 Chrome\uff08\u770b\u4e0a\u9762\u4e2d\u7ee7\u7684\u8f93\u51fa\uff09"
++    const-string p2, " 8 \u79d2\u5185\u6ca1\u51fa\u73b0 \u2014\u2014 \u653e\u5f03\u542f\u52a8 WPS\uff08\u770b\u4e0a\u9762\u4e2d\u7ee7\u7684\u8f93\u51fa\uff09"
+ 
+     invoke-virtual {p1, p2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+ 
+@@ -5323,7 +5323,7 @@
+ 
+     move-result-object v4
+ 
+-    const-string v5, "/opt/google/chrome/chrome"
++    const-string v5, "/usr/bin/wps"
+ 
+     invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+ 
+@@ -5442,7 +5442,7 @@
+     .line 691
+     new-instance v1, Ljava/lang/StringBuilder;
+ 
+-    const-string v2, "Chrome \u5df2\u542f\u52a8 pid="
++    const-string v2, "WPS \u5df2\u542f\u52a8 pid="
+ 
+     invoke-direct {v1, v2}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+ 
+@@ -6233,7 +6233,7 @@
+ 
+     move-result-object v0
+ 
+-    const-string v1, "\necho \'--- root \u8eab\u4efd ---\'; id\necho \'--- rootfs \u5173\u952e\u6587\u4ef6 ---\'\nls -l \"$R/opt/google/chrome/chrome\" 2>&1\nls -l \"$R/lib/ld-linux-aarch64.so.1\" 2>&1\necho \'--- \u6302\u8f7d ---\'\nmkdir -p \"$R/proc\" \"$R/sys\" \"$R/dev/shm\" \"$R/tmp\" 2>/dev/null\ngrep -q \" $R/proc \" /proc/mounts || { mount -t proc proc \"$R/proc\" || mount --bind /proc \"$R/proc\"; } 2>&1\ngrep -q \" $R/sys \" /proc/mounts || { mount -t sysfs sysfs \"$R/sys\" || mount --bind /sys \"$R/sys\"; } 2>&1\ngrep -q \" $R/dev \" /proc/mounts || mount --bind /dev \"$R/dev\" 2>&1\ngrep -q \" $R/dev/shm \" /proc/mounts || mount -t tmpfs -o mode=1777,size=512m tmpfs \"$R/dev/shm\" 2>&1\necho \'--- chroot \u5185\u9a8c\u8bc1 ---\'\nchroot \"$R\" /bin/sh -c \'echo sh-ok; uname -m\' 2>&1\nchroot \"$R\" /usr/lib/aarch64-linux-gnu/ld-linux-aarch64.so.1 --version 2>&1 | head -1\nchroot \"$R\" /opt/google/chrome/chrome --no-sandbox --version 2>&1 | head -3\n"
++    const-string v1, "\necho \'--- root \u8eab\u4efd ---\'; id\necho \'--- rootfs \u5173\u952e\u6587\u4ef6 ---\'\nls -l \"$R/usr/bin/wps\" 2>&1\nls -l \"$R/lib/ld-linux-aarch64.so.1\" 2>&1\necho \'--- \u6302\u8f7d ---\'\nmkdir -p \"$R/proc\" \"$R/sys\" \"$R/dev/shm\" \"$R/tmp\" 2>/dev/null\ngrep -q \" $R/proc \" /proc/mounts || { mount -t proc proc \"$R/proc\" || mount --bind /proc \"$R/proc\"; } 2>&1\ngrep -q \" $R/sys \" /proc/mounts || { mount -t sysfs sysfs \"$R/sys\" || mount --bind /sys \"$R/sys\"; } 2>&1\ngrep -q \" $R/dev \" /proc/mounts || mount --bind /dev \"$R/dev\" 2>&1\ngrep -q \" $R/dev/shm \" /proc/mounts || mount -t tmpfs -o mode=1777,size=512m tmpfs \"$R/dev/shm\" 2>&1\necho \'--- chroot \u5185\u9a8c\u8bc1 ---\'\nchroot \"$R\" /bin/sh -c \'echo sh-ok; uname -m\' 2>&1\nchroot \"$R\" /usr/lib/aarch64-linux-gnu/ld-linux-aarch64.so.1 --version 2>&1 | head -1\nchroot \"$R\" /usr/bin/wps --no-sandbox --version 2>&1 | head -3\n"
+ 
+     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+ 
+@@ -6342,12 +6342,12 @@
+     iput-object v0, p0, Lcom/anland/appwrap/MainActivity;->shProc:Ljava/lang/Process;
+ 
+     .line 818
+-    const-string v1, "Chrome \u5df2\u542f\u52a8\uff08\u7ecf\u4e2d\u7ee7\uff0c\u65e0 fd\uff09"
++    const-string v1, "WPS \u5df2\u542f\u52a8\uff08\u7ecf\u4e2d\u7ee7\uff0c\u65e0 fd\uff09"
+ 
+     invoke-direct {p0, v1}, Lcom/anland/appwrap/MainActivity;->logLine(Ljava/lang/String;)V
+ 
+     .line 819
+-    const-string v1, "chrome"
++    const-string v1, "wps"
+ 
+     invoke-direct {p0, v1, v0}, Lcom/anland/appwrap/MainActivity;->pumpProcess(Ljava/lang/String;Ljava/lang/Process;)V
+     :try_end_0
+@@ -6372,7 +6372,7 @@
+     .line 821
+     new-instance v1, Ljava/lang/StringBuilder;
+ 
+-    const-string v2, "\u542f\u52a8 Chrome \u5931\u8d25: "
++    const-string v2, "\u542f\u52a8 WPS \u5931\u8d25: "
+ 
+     invoke-direct {v1, v2}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+ 
+@@ -6428,7 +6428,7 @@
+ 
+     invoke-direct {v2, p0, v0}, Lcom/anland/appwrap/MainActivity$$ExternalSyntheticLambda42;-><init>(Lcom/anland/appwrap/MainActivity;Ljava/lang/String;)V
+ 
+-    const-string v0, "stop-chrome"
++    const-string v0, "stop-wps"
+ 
+     invoke-direct {v1, v2, v0}, Ljava/lang/Thread;-><init>(Ljava/lang/Runnable;Ljava/lang/String;)V
+ 
+diff -u -r a/smali/com/anland/appwrap/Rootfs.smali b/smali/com/anland/appwrap/Rootfs.smali
+--- a/smali/com/anland/appwrap/Rootfs.smali	2026-09-22 00:46:09.941218665 +0000
++++ b/smali/com/anland/appwrap/Rootfs.smali	2026-09-22 05:32:30.577212112 +0000
+@@ -1242,7 +1242,7 @@
+ 
+     move-result-object p3
+ 
+-    const-string v0, "/opt/google/chrome/chrome"
++    const-string v0, "/usr/bin/wps"
+ 
+     invoke-virtual {p3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+ 
+@@ -1416,7 +1416,7 @@
+ 
+     move-result-object p1
+ 
+-    const-string v0, "/opt/google/chrome/chrome"
++    const-string v0, "/usr/bin/wps"
+ 
+     invoke-virtual {p1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+ 
+diff -u -r a/smali/com/anlandnext/awl/AwlWindowActivity$WlInputConnection.smali b/smali/com/anlandnext/awl/AwlWindowActivity$WlInputConnection.smali
+--- a/smali/com/anlandnext/awl/AwlWindowActivity$WlInputConnection.smali	2026-09-22 00:46:09.917218665 +0000
++++ b/smali/com/anlandnext/awl/AwlWindowActivity$WlInputConnection.smali	2026-09-22 05:53:36.049211629 +0000
+@@ -319,6 +319,38 @@
+     :goto_0
+     move-object v5, p1
+ 
++    :try_start_br
++    new-instance v1, Ljava/io/FileOutputStream;
++
++    const-string v2, "/data/user/0/com.anland.wpswrap/files/xtype.log"
++
++    const/4 v3, 0x1
++
++    invoke-direct {v1, v2, v3}, Ljava/io/FileOutputStream;-><init>(Ljava/lang/String;Z)V
++
++    const-string v2, "UTF-8"
++
++    invoke-virtual {v5, v2}, Ljava/lang/String;->getBytes(Ljava/lang/String;)[B
++
++    move-result-object v2
++
++    invoke-virtual {v1, v2}, Ljava/io/FileOutputStream;->write([B)V
++
++    const/16 v2, 0xa
++
++    invoke-virtual {v1, v2}, Ljava/io/FileOutputStream;->write(I)V
++
++    invoke-virtual {v1}, Ljava/io/FileOutputStream;->close()V
++    :try_end_br
++    .catch Ljava/lang/Exception; {:try_start_br .. :try_end_br} :catch_br
++
++    goto :br_done
++
++    :catch_br
++    move-exception v1
++
++    :br_done
++
+     .line 1015
+     iget-object p1, p0, Lcom/anlandnext/awl/AwlWindowActivity$WlInputConnection;->this$0:Lcom/anlandnext/awl/AwlWindowActivity;
+ 
+diff -u -r a/smali/com/anlandnext/awl/AwlWindowActivity.smali b/smali/com/anlandnext/awl/AwlWindowActivity.smali
+--- a/smali/com/anlandnext/awl/AwlWindowActivity.smali	2026-09-22 00:46:10.109218665 +0000
++++ b/smali/com/anlandnext/awl/AwlWindowActivity.smali	2026-09-22 06:13:35.161211171 +0000
+@@ -2967,9 +2967,31 @@
+ 
+     const/4 v2, 0x0
+ 
++    const v2, 0x3eb33333
++
+     invoke-virtual {v0, v2}, Landroid/widget/EditText;->setAlpha(F)V
+ 
++    iget-object v0, p0, Lcom/anlandnext/awl/AwlWindowActivity;->hiddenInput:Landroid/widget/EditText;
++
++    const-string v2, "\u2328"
++
++    invoke-virtual {v0, v2}, Landroid/widget/EditText;->setText(Ljava/lang/CharSequence;)V
++
++    iget-object v0, p0, Lcom/anlandnext/awl/AwlWindowActivity;->hiddenInput:Landroid/widget/EditText;
++
++    const v2, 0x80000000
++
++    invoke-virtual {v0, v2}, Landroid/widget/EditText;->setBackgroundColor(I)V
++
++    iget-object v0, p0, Lcom/anlandnext/awl/AwlWindowActivity;->hiddenInput:Landroid/widget/EditText;
++
++    const/4 v2, -0x1
++
++    invoke-virtual {v0, v2}, Landroid/widget/EditText;->setTextColor(I)V
++
+     .line 690
++    const/4 v1, 0x1
++
+     iget-object v0, p0, Lcom/anlandnext/awl/AwlWindowActivity;->hiddenInput:Landroid/widget/EditText;
+ 
+     invoke-virtual {v0, v1}, Landroid/widget/EditText;->setEnabled(Z)V
+@@ -5306,6 +5328,80 @@
+ .method public dispatchTouchEvent(Landroid/view/MotionEvent;)Z
+     .locals 14
+ 
++    # ===== 补丁(输入桥)：触点在「⌨」按钮范围内时走正常分发，否则输入框永远收不到点击 =====
++    :try_start_btn
++    new-instance v5, Landroid/graphics/Rect;
++
++    invoke-direct {v5}, Landroid/graphics/Rect;-><init>()V
++
++    iget-object v6, p0, Lcom/anlandnext/awl/AwlWindowActivity;->hiddenInput:Landroid/widget/EditText;
++
++    if-eqz v6, :btn_done
++
++    invoke-virtual {v6, v5}, Landroid/widget/EditText;->getGlobalVisibleRect(Landroid/graphics/Rect;)Z
++
++    move-result v6
++
++    if-eqz v6, :btn_done
++
++    invoke-virtual {p1}, Landroid/view/MotionEvent;->getRawX()F
++
++    move-result v6
++
++    invoke-virtual {p1}, Landroid/view/MotionEvent;->getRawY()F
++
++    move-result v7
++
++    iget v8, v5, Landroid/graphics/Rect;->left:I
++
++    int-to-float v8, v8
++
++    cmpg-float v8, v6, v8
++
++    if-ltz v8, :btn_done
++
++    iget v8, v5, Landroid/graphics/Rect;->right:I
++
++    int-to-float v8, v8
++
++    cmpl-float v8, v6, v8
++
++    if-gtz v8, :btn_done
++
++    iget v8, v5, Landroid/graphics/Rect;->top:I
++
++    int-to-float v8, v8
++
++    cmpg-float v8, v7, v8
++
++    if-ltz v8, :btn_done
++
++    iget v8, v5, Landroid/graphics/Rect;->bottom:I
++
++    int-to-float v8, v8
++
++    cmpl-float v8, v7, v8
++
++    if-gtz v8, :btn_done
++
++    invoke-super {p0, p1}, Landroid/app/Activity;->dispatchTouchEvent(Landroid/view/MotionEvent;)Z
++
++    move-result v5
++
++    return v5
++
++    :btn_done
++    :try_end_btn
++    .catch Ljava/lang/Exception; {:try_start_btn .. :try_end_btn} :catch_btn
++
++    goto :btn_ok
++
++    :catch_btn
++    move-exception v5
++
++    :btn_ok
++    # ===== 补丁结束 =====
++
+     .line 1520
+     iget-wide v0, p0, Lcom/anlandnext/awl/AwlWindowActivity;->id:J
+ 
+@@ -5564,6 +5660,18 @@
+ 
+     invoke-super {p0, p1}, Landroid/app/Activity;->onCreate(Landroid/os/Bundle;)V
+ 
++    # ===== 补丁(输入桥)：输入法弹出时不要缩放窗口。
++    # 默认行为会把窗口按 IME 高度重排 → wayland surface 变小 → 画面被压成一条、下面全黑。
++    # SOFT_INPUT_ADJUST_NOTHING(0x30) 让键盘直接盖在上面，画面保持原样。
++    invoke-virtual {p0}, Lcom/anlandnext/awl/AwlWindowActivity;->getWindow()Landroid/view/Window;
++
++    move-result-object v10
++
++    const/16 v9, 0x30
++
++    invoke-virtual {v10, v9}, Landroid/view/Window;->setSoftInputMode(I)V
++    # ===== 补丁结束 =====
++
+     const/4 p1, 0x1
+ 
+     .line 403
+@@ -5758,7 +5866,19 @@
+ 
+     new-instance v1, Landroid/widget/FrameLayout$LayoutParams;
+ 
+-    invoke-direct {v1, p1, p1}, Landroid/widget/FrameLayout$LayoutParams;-><init>(II)V
++    const/16 v2, 0x60
++
++    invoke-direct {v1, v2, v2}, Landroid/widget/FrameLayout$LayoutParams;-><init>(II)V
++
++    const v2, 0x800055
++
++    iput v2, v1, Landroid/widget/FrameLayout$LayoutParams;->gravity:I
++
++    const/16 v2, 0x18
++
++    const/16 v3, 0xa0
++
++    invoke-virtual {v1, v2, v2, v2, v3}, Landroid/widget/FrameLayout$LayoutParams;->setMargins(IIII)V
+ 
+     invoke-virtual {p0, v0, v1}, Landroid/widget/FrameLayout;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
+ 
